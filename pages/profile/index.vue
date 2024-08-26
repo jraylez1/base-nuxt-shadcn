@@ -1,8 +1,5 @@
 <template>
-  <div>
-    header2
-    <slot />
-  </div>
+  <div>profile</div>
 </template>
 
 <script setup lang="ts"></script>

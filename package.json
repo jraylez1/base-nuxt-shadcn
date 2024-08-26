@@ -3,23 +3,35 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
+    "build": "cross-env NODE_ENV=production nuxt build",
+    "dev": "cross-env NODE_ENV=development nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@nuxt/icon": "^1.4.3",
+    "@nuxtjs/i18n": "^8.5.1",
+    "@pinia/nuxt": "^0.5.4",
+    "@tanstack/vue-table": "^8.20.5",
+    "@vee-validate/zod": "^4.13.2",
+    "@vueuse/core": "^11.0.3",
+    "add": "^2.0.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "cross-env": "^7.0.3",
     "lucide-vue-next": "^0.418.0",
     "nuxt": "^3.12.4",
+    "pinia": "^2.2.2",
     "radix-vue": "^1.9.2",
     "shadcn-nuxt": "^0.10.4",
+    "shadcn-vue": "^0.10.5",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
-    "vue": "latest"
+    "vee-validate": "^4.13.2",
+    "vue": "^3.4.38",
+    "vue-sonner": "^1.1.5",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@iconify-json/uil": "^1.1.8",

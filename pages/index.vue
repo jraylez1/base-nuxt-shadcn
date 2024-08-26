@@ -1,10 +1,11 @@
 <template>
-  <div>
-    <Icon name="uil:github" style="color: black" />
-    <Button>Click me</Button>
-  </div>
+  <div></div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({
+  middleware: 'auth'
+})
+</script>
 
 <style scoped></style>
