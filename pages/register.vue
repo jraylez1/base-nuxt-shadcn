@@ -3,10 +3,10 @@
     <Card>
       <CardHeader>
         <CardTitle class="flex justify-between items-center">
-          <span>{{ $t('Register') }}</span>
+          <span>{{ t('Register') }}</span>
           <LangSwitch />
         </CardTitle>
-        <CardDescription>{{ $t('Sign up to get started with your new account.') }}</CardDescription>
+        <CardDescription>{{ t('Sign up to get started with your new account.') }}</CardDescription>
       </CardHeader>
       <CardContent>
         <form @submit="onSubmit" class="w-[400px] space-y-4">
@@ -22,9 +22,9 @@
 
           <FormField v-slot="{ componentField }" name="phoneNumber">
             <FormItem>
-              <FormLabel>{{ $t('Phone Number') }}</FormLabel>
+              <FormLabel>{{ t('Phone Number') }}</FormLabel>
               <FormControl>
-                <Input type="tel" :placeholder="$t('Phone Number')" v-bind="componentField" />
+                <Input type="tel" :placeholder="t('Phone Number')" v-bind="componentField" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -32,9 +32,9 @@
 
           <FormField v-slot="{ componentField }" name="password">
             <FormItem>
-              <FormLabel>{{ $t('Password') }}</FormLabel>
+              <FormLabel>{{ t('Password') }}</FormLabel>
               <FormControl>
-                <Input type="password" :placeholder="$t('Password')" v-bind="componentField" />
+                <Input type="password" :placeholder="t('Password')" v-bind="componentField" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -42,21 +42,21 @@
 
           <FormField v-slot="{ componentField }" name="confirmPassword">
             <FormItem>
-              <FormLabel>{{ $t('Confirm Password') }}</FormLabel>
+              <FormLabel>{{ t('Confirm Password') }}</FormLabel>
               <FormControl>
-                <Input type="password" :placeholder="$t('Confirm Password')" v-bind="componentField" />
+                <Input type="password" :placeholder="t('Confirm Password')" v-bind="componentField" />
               </FormControl>
               <FormMessage />
             </FormItem>
           </FormField>
 
-          <Button type="submit" class="w-full">{{ $t('Sign Up') }}</Button>
+          <Button type="submit" class="w-full">{{ t('Sign Up') }}</Button>
         </form>
       </CardContent>
       <CardFooter class="flex justify-center items-center">
-        {{ $t('Already have an account?') }}
+        {{ t('Already have an account?') }}
         <NuxtLink to="/login" class="ml-1 text-blue-600 hover:text-blue-800 hover:underline no-underline">
-          {{ $t('Login') }}
+          {{ t('Login') }}
         </NuxtLink>
       </CardFooter>
     </Card>

@@ -28,6 +28,7 @@ const sorting = ref<SortingState>([])
 const columnFilters = ref<ColumnFiltersState>([])
 const columnVisibility = ref<VisibilityState>({})
 const rowSelection = ref({})
+const { t } = useI18n()
 
 const table = useVueTable({
   get data() {
@@ -63,36 +64,39 @@ const table = useVueTable({
 
 <template>
   <div>
-    <div class="flex items-center py-4">
+    <div class="flex items-center justify-between py-4">
       <Input
         class="max-w-sm"
-        :placeholder="$t('Search...')"
+        :placeholder="t('Search...')"
         :model-value="table.getColumn(filterField)?.getFilterValue() as string"
         @update:model-value="table.getColumn(filterField)?.setFilterValue($event)"
       />
-      <DropdownMenu>
-        <DropdownMenuTrigger as-child>
-          <Button variant="outline" class="ml-auto">
-            {{ $t('Show columns') }}
-            <ChevronDown class="w-4 h-4 ml-2" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuCheckboxItem
-            v-for="column in table.getAllColumns().filter((column) => column.getCanHide())"
-            :key="column.id"
-            class="capitalize"
-            :checked="column.getIsVisible()"
-            @update:checked="
-              (value) => {
-                column.toggleVisibility(!!value)
-              }
-            "
-          >
-            {{ column.id }}
-          </DropdownMenuCheckboxItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div class="flex">
+        <Button class="mr-3" @click="$emit('openModal')">{{ t('Add new') }}</Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger as-child>
+            <Button variant="outline" class="ml-auto">
+              {{ t('Show columns') }}
+              <ChevronDown class="w-4 h-4 ml-2" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuCheckboxItem
+              v-for="column in table.getAllColumns().filter((column) => column.getCanHide())"
+              :key="column.id"
+              class="capitalize"
+              :checked="column.getIsVisible()"
+              @update:checked="
+                (value) => {
+                  column.toggleVisibility(!!value)
+                }
+              "
+            >
+              {{ column.id }}
+            </DropdownMenuCheckboxItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </div>
     <div class="border rounded-md">
       <Table>
@@ -134,10 +138,10 @@ const table = useVueTable({
       </div>
       <div class="space-x-2">
         <Button variant="outline" size="sm" :disabled="!table.getCanPreviousPage()" @click="table.previousPage()">
-          Previous
+          {{ t('Previous') }}
         </Button>
         <Button variant="outline" size="sm" :disabled="!table.getCanNextPage()" @click="table.nextPage()">
-          Next
+          {{ t('Next') }}
         </Button>
       </div>
     </div>

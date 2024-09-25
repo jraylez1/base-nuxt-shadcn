@@ -3,18 +3,18 @@
     <Card>
       <CardHeader>
         <CardTitle class="flex justify-between items-center">
-          <span>{{ $t('Login') }}</span>
+          <span>{{ t('Login') }}</span>
           <LangSwitch />
         </CardTitle>
-        <CardDescription>{{ $t('Log in to continue accessing your account.') }}</CardDescription>
+        <CardDescription>{{ t('Log in to continue accessing your account.') }}</CardDescription>
       </CardHeader>
       <CardContent>
         <form @submit="onSubmit" class="w-[400px] space-y-4">
-          <FormField v-slot="{ componentField }" name="username">
+          <FormField v-slot="{ componentField }" name="mobile">
             <FormItem>
-              <FormLabel>{{ $t('Username') }}</FormLabel>
+              <FormLabel>{{ t('Mobile') }}</FormLabel>
               <FormControl>
-                <Input type="text" :placeholder="$t('Username')" v-bind="componentField" />
+                <Input type="text" :placeholder="t('Mobile')" v-bind="componentField" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -22,23 +22,30 @@
 
           <FormField v-slot="{ componentField }" name="password">
             <FormItem>
-              <FormLabel>{{ $t('Password') }}</FormLabel>
+              <FormLabel>{{ t('Password') }}</FormLabel>
               <FormControl>
-                <Input type="password" :placeholder="$t('Password')" v-bind="componentField" />
+                <Input type="password" :placeholder="t('Password')" v-bind="componentField" />
               </FormControl>
               <FormMessage />
             </FormItem>
           </FormField>
 
-          <Button type="submit" class="w-full">{{ $t('Login') }}</Button>
+          <div class="flex justify-start items-center mb-6">
+            <div class="flex items-center">
+              <Checkbox :checked="rememberMe" @update:checked="(val) => (rememberMe = val)" id="rememberMe" />
+              <label for="rememberMe" class="ml-2 text-sm"> {{ $t('Remember me') }} </label>
+            </div>
+          </div>
+
+          <Button type="submit" class="w-full">{{ t('Login') }}</Button>
         </form>
       </CardContent>
-      <CardFooter class="flex justify-center items-center">
-        {{ $t(`Don't have an account?`) }}
+      <!-- <CardFooter class="flex justify-center items-center">
+        {{ t(`Don't have an account?`) }}
         <NuxtLink to="/register" class="ml-1 text-blue-600 hover:text-blue-800 hover:underline no-underline">{{
-          $t('Sign up')
+          t('Sign up')
         }}</NuxtLink>
-      </CardFooter>
+      </CardFooter> -->
     </Card>
   </div>
 </template>
@@ -55,17 +62,18 @@ definePageMeta({
 })
 
 const authStore = useAuthStore()
+const rememberMe = ref(false)
 const { t } = useI18n()
 
 const formSchema = toTypedSchema(
   z.object({
-    username: z
+    mobile: z
       .string({
-        required_error: t('Username is required'),
-        invalid_type_error: 'Username must be a string'
+        required_error: t('Mobile is required'),
+        invalid_type_error: 'Mobile must be a string'
       })
-      .min(2)
-      .max(50),
+      .min(1, t('Mobile must contain at least 1 character(s)'))
+      .max(10, t('Mobile must contain at most 10 character(s)')),
     password: z
       .string({
         required_error: t('Password is required'),
@@ -80,7 +88,7 @@ const form = useForm({
 })
 
 const onSubmit = form.handleSubmit((values) => {
-  authStore.login(values, t)
+  authStore.login(values, rememberMe.value, t)
 })
 </script>
 
